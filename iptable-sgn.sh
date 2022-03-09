@@ -71,6 +71,10 @@ main(){
         iptables --table nat --append PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp:80   
         iptables --table nat --append POSTROUTING --protocol tcp --destination $clientIp --dport 80 --jump SNAT --to-source $firewallIp
 
+        iptables --table nat --append PREROUTING --protocol tcp --destination $firewallIp --dport 22 --jump DNAT --to-destination $clientIp:22
+        iptables --table nat --append POSTROUTING --protocol tcp --destination $clientIp --dport 22 --jump SNAT --to-source $firewallIp
+
+
     elif [[ 8 == $choice ]]
     then 
         echo -e "Remove Client Ip : "
@@ -84,6 +88,10 @@ main(){
         fi    
         iptables --table nat -D PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp:80   
         iptables --table nat -D POSTROUTING --protocol tcp --destination $clientIp --dport 80 --jump SNAT --to-source $firewallIp
+
+        iptables --table nat -D PREROUTING --protocol tcp --destination $firewallIp --dport 22 --jump DNAT --to-destination $clientIp:22
+        iptables --table nat -D POSTROUTING --protocol tcp --destination $clientIp --dport 22 --jump SNAT --to-source $firewallIp
+
 
     fi    
 }

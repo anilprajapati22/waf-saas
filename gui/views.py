@@ -86,6 +86,11 @@ def setWAF(request):
                 'msg': request.session['msg']
              })	
 
-
+# for proxy
 #iptables --table nat --append PREROUTING --protocol tcp --destination 172.17.0.2 --dport 80 --jump DNAT --to-destination 192.168.1.66:80
 #iptables --table nat --append POSTROUTING --protocol tcp --destination 192.168.1.66 --dport 80 --jump SNAT --to-source 172.17.0.2
+
+
+# for ssh proxy
+#iptables --table nat --append PREROUTING --protocol tcp --destination 172.17.0.2 --dport 22 --jump DNAT --to-destination 192.168.1.66:22
+#iptables --table nat --append POSTROUTING --protocol tcp --destination 192.168.1.66 --dport 22 --jump SNAT --to-source 172.17.0.2
