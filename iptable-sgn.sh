@@ -13,7 +13,7 @@ main(){
             echo -e "enter Ip Address : "
             read ipadd
         fi    
-        iptables --table mangle -I PREROUTING -s $ipadd -p tcp --dport 80 -j DROP
+        iptables --table mangle -I PREROUTING -s $ipadd -p tcp --dport 8080 -j DROP
     elif [[ 2 == $choice ]]
     then 
         if [[ -z $2 ]]
@@ -21,7 +21,7 @@ main(){
             echo -e "enter Ip Address : "
             read ipadd
         fi    
-        iptables --table mangle -D PREROUTING -s $ipadd -p tcp --dport 80 -j DROP
+        iptables --table mangle -D PREROUTING -s $ipadd -p tcp --dport 8080 -j DROP
     elif [[ 3 == $choice ]]
     then 
         if [[ -z $2 ]]
