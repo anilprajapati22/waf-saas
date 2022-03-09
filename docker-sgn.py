@@ -2,8 +2,9 @@ import docker
 client = docker.from_env() #start connection with docker
 
 try:
-    sgncontainer = client.containers.run("sgn-waf", detach=True,
-            ports={'9080/tcp':8080},
+    sgncontainer = client.containers.run("alpine", detach=True,
+            ports={'80/tcp':8084,'81/tcp':8085},
+
             volumes=['/home/anil/sem8:/sgn-waf'],
             name="sgn-python")
 

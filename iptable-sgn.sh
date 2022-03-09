@@ -67,8 +67,8 @@ main(){
             echo -e "enter Client Ip Address : "
             echo -e "enter Ip Address : "
             read clientIp
-        fi    
-        iptables --table nat --append PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp
+        fi 
+        iptables --table nat --append PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp:80   
         iptables --table nat --append POSTROUTING --protocol tcp --destination $clientIp --dport 80 --jump SNAT --to-source $firewallIp
 
     elif [[ 8 == $choice ]]
@@ -82,7 +82,7 @@ main(){
             echo -e "enter Ip Address : "
             read clientIp
         fi    
-        iptables --table nat -D PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp
+        iptables --table nat -D PREROUTING --protocol tcp --destination $firewallIp --dport 80 --jump DNAT --to-destination $clientIp:80   
         iptables --table nat -D POSTROUTING --protocol tcp --destination $clientIp --dport 80 --jump SNAT --to-source $firewallIp
 
     fi    

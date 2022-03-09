@@ -76,8 +76,8 @@ def setWAF(request):
 
     if request.method == "POST":
         try:
-            
-            p = subprocess.Popen(["bash","iptable-sgn.sh","7",request.POST['black_list_ip'],])
+
+            p = subprocess.Popen(["bash","iptable-sgn.sh","7",request.POST['client_ip'],"172.17.0.2"])
             
             return redirect(setRules)
         except:
@@ -85,3 +85,7 @@ def setWAF(request):
             return render(request=request, template_name="setRules.html",context={
                 'msg': request.session['msg']
              })	
+
+
+#iptables --table nat --append PREROUTING --protocol tcp --destination 172.17.0.2 --dport 80 --jump DNAT --to-destination 192.168.1.66:80
+#iptables --table nat --append POSTROUTING --protocol tcp --destination 192.168.1.66 --dport 80 --jump SNAT --to-source 172.17.0.2
