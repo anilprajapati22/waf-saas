@@ -100,7 +100,7 @@ main(){
     elif [[ 11 == $choice ]]
     then 
         echo -e "Removing  SQL prevention Rules  : $ipadd \n"
-        iptables --table mangle -I INPUT -p tcp  -m string --string $ipadd --algo bm -j DROP
+        iptables --table mangle -D INPUT -p tcp  -m string --string $ipadd --algo bm -j DROP
 
 
     fi    
