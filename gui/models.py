@@ -8,10 +8,16 @@ class sgn(models.Model):
     pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.question_text
+
 class iptableRules(models.Model):
     project_name = models.CharField(max_length=200)
     rule = models.CharField(max_length=200)
     ipaddr = models.CharField(max_length=200)
+
+class SQlFileterRules(models.Model):
+    project_name = models.CharField(max_length=200)
+    SQLFilterStr = models.CharField(max_length=200)
+
 
 class wafdetails(models.Model):
     container_id =  models.CharField(max_length=200)

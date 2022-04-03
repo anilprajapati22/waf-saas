@@ -2,7 +2,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import subprocess
-from .models import iptableRules
+from .models import iptableRules,SQlFileterRules
 
 
 # Create your views here.
@@ -85,6 +85,38 @@ def setWAF(request):
             return render(request=request, template_name="setRules.html",context={
                 'msg': request.session['msg']
              })	
+
+def setSQLFilter(request):
+    if request.method == "GET":
+        #request.session['msg']=""
+        SQLRules = SQlFileterRules.objects.all()
+        return render(request=request, template_name="setRules.html",context={ 
+            'SQLRules' :SQLRules
+         })	
+
+    if request.method == "POST":
+        try:
+            p = subprocess.Popen(["bash","iptable-sgn.sh","10",request.POST['filter_string']])
+            rule = SQlFileterRules(project_name = "sgn",
+                                SQLFilterStr=request.POST['filter_string'])
+            rule.save()                    
+            
+            return redirect(setSQLFilter)
+        except:
+            request.session['msg']="Rule was not Created try again"
+            return render(request=request, template_name="setRules.html",context={
+                'msg': request.session['msg']
+             })	
+
+
+def SQLFilterRemove(request,sql_filter_rule):
+    rule = SQlFileterRules.objects.get(
+                        id=sql_filter_rule)
+    rule.delete()                    
+    p = subprocess.Popen(["bash","iptable-sgn.sh","11",rule.SQLFilterStr])    
+
+    return redirect(setSQLFilter)
+
 
 # for proxy
 #iptables --table nat --append PREROUTING --protocol tcp --destination 172.17.0.2 --dport 80 --jump DNAT --to-destination 192.168.1.66:80
