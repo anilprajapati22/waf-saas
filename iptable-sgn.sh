@@ -92,6 +92,16 @@ main(){
         iptables --table nat -D PREROUTING --protocol tcp --destination $firewallIp --dport 22 --jump DNAT --to-destination $clientIp:22
         iptables --table nat -D POSTROUTING --protocol tcp --destination $clientIp --dport 22 --jump SNAT --to-source $firewallIp
 
+    elif [[ 10 == $choice ]]
+    then 
+        echo -e "Adding  SQL prevention Rules : $ipadd\n"
+        iptables --table mangle -I INPUT -p tcp  -m string --string $ipadd --algo bm -j DROP     
+
+    elif [[ 11 == $choice ]]
+    then 
+        echo -e "Removing  SQL prevention Rules  : $ipadd \n"
+        iptables --table mangle -I INPUT -p tcp  -m string --string $ipadd --algo bm -j DROP
+
 
     fi    
 }
