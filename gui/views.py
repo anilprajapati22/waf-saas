@@ -3,7 +3,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import subprocess
 from .models import iptableRules,SQlFileterRules
-
+from .forms import UserRegistrationForm
+from django.contrib.auth import login
 
 # Create your views here.
 #shree ganeshay namah
@@ -15,6 +16,17 @@ def sgn(request):
 def index(request):
     context={}
     return render(request, 'index.html', context)    
+
+def register(request):
+	if request.method == "POST":
+		form = UserRegistrationForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			return redirect("setRules")
+	form = UserRegistrationForm()
+	return render (request=request, template_name="registration/register.html", context={"register_form":form})    
+
 
 
 
@@ -90,7 +102,7 @@ def setSQLFilter(request):
     if request.method == "GET":
         #request.session['msg']=""
         SQLRules = SQlFileterRules.objects.all()
-        return render(request=request, template_name="setRules.html",context={ 
+        return render(request=request, template_name="setSQLFilter.html",context={ 
             'SQLRules' :SQLRules
          })	
 

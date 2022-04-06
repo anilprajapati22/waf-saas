@@ -24,31 +24,34 @@ margin-top:5%;
     {% endif %}
 
 </div>
+{% if user.is_authenticated %}
 
 
-<form method="POST">
-    {% csrf_token %}
-    <div class="container card text-center  col-5 bg-dark mb-5 ">
-        <div class="card-header mt-5 text-light">
-            <h1>Set Proxy Server</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container card text-center  col-5 bg-dark mb-5 ">
+            <div class="card-header mt-5 text-light">
+                <h1>Set Proxy Server</h1>
+            </div>
+            
+            <div class="row">
+                <input type="text" class="form-control mb-3 ml-4 mt-4" name="project_name" placeholder="project name">
+            </div>
+
+            <div class="row">
+                <input type="text" class="form-control mb-3 ml-4 mt-4" name="client_ip" placeholder="Web Server IP">
+            </div>
+
+            
+    
+        </br>
+            <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
+                <input type="submit" class="bg-warning rounded" name="login" value="Pull">
+            </div>
         </div>
-        
-        <div class="row">
-            <input type="text" class="form-control mb-3 ml-4 mt-4" name="project_name" placeholder="project name">
-        </div>
+    </form>
+{% else %}
+    <h1> please login </h1>
 
-        <div class="row">
-            <input type="text" class="form-control mb-3 ml-4 mt-4" name="client_ip" placeholder="Web Server IP">
-        </div>
-
-        
-  
-    </br>
-        <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
-            <input type="submit" class="bg-warning rounded" name="login" value="Pull">
-        </div>
-    </div>
-</form>
-
-
+{% endif %}
 {% endblock %}

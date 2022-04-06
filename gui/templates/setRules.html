@@ -27,79 +27,87 @@ margin-top:5%;
 
     {% endif %}
 
-</div>
-<div class="container px-auto mx-auto">
-    <div class="row gx-5">
-      <div class="col">
-       <div class="p-3 border bg-light">
-           <form method="POST" class="mx-auto">
-        {% csrf_token %}
-        <div class="card text-center  col-12 bg-dark mb-5 ">
-            <div class="card-header mt-5 text-light">
-                <h1>Set Rules</h1>
+{% if user.is_authenticated %}
+
+
+    </div>
+    <div class="container px-auto mx-auto">
+        <div class="row gx-5">
+        <div class="col">
+        <div class="p-3 border bg-light">
+            <form method="POST" class="mx-auto">
+            {% csrf_token %}
+            <div class="card text-center  col-12 bg-dark mb-5 ">
+                <div class="card-header mt-5 text-light">
+                    <h1>Set Rules</h1>
+                </div>
+        
+                <div class="row">
+                    <input type="text" class="form-control mb-3 ml-4 mt-4" name="black_list_ip" placeholder="Black List IP">
+                </div>
+            </br>
+                <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
+                    <button type="submit" class="btn btn-warning rounded" name="login" value="Add">Add</button>
+                </div>
             </div>
     
-            <div class="row">
-                <input type="text" class="form-control mb-3 ml-4 mt-4" name="black_list_ip" placeholder="Black List IP">
-            </div>
-        </br>
-            <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
-                <button type="submit" class="btn btn-warning rounded" name="login" value="Add">Add</button>
-            </div>
-        </div>
-  
 
-    </form>
-    <div class="mb-5">
-    {% if black_list_ips %}
+        </form>
+        <div class="mb-5">
+        {% if black_list_ips %}
 
-    {% for ip in black_list_ips %}
+        {% for ip in black_list_ips %}
 
-    <p> {{ip.ipaddr}} 
-     <a href="/{{ ip.id }}/BlackListRemove"> <b>  Remove  </b> </a> </p>
-    {% endfor %}
+        <p> {{ip.ipaddr}} 
+        <a href="/{{ ip.id }}/BlackListRemove"> <b>  Remove  </b> </a> </p>
+        {% endfor %}
 
-    {% endif %}
-</div>
+        {% endif %}
     </div>
-      </div>
-      <div class="col">
-        <div class="p-3 border bg-light">
-            <!-- form here its white list -->
+        </div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light">
+                <!-- form here its white list -->
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="card text-center  col-12 bg-dark mb-5 ">
+                        <div class="card-header mt-5 text-light">
+                            <h1>Set Rules</h1>
+                        </div>
+                
+                        <div class="row">
+                            <input type="text" class="form-control mb-3 ml-4 mt-4" name="white_list_ip" placeholder="white List IP">
+                        </div>
+                    </br>
+                        <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
+                            <button type="submit" class="btn btn-warning rounded shadow" name="login" value="Add">Add</button>
+                        </div>
+                    </div>
+
             
-            <form method="POST">
-                {% csrf_token %}
-                <div class="card text-center  col-12 bg-dark mb-5 ">
-                    <div class="card-header mt-5 text-light">
-                        <h1>Set Rules</h1>
-                    </div>
-            
-                    <div class="row">
-                        <input type="text" class="form-control mb-3 ml-4 mt-4" name="white_list_ip" placeholder="white List IP">
-                    </div>
-                </br>
-                    <div class="row col-12 mb-3 rounded ml-2 mt-5 pr-3 mb-5">
-                        <button type="submit" class="btn btn-warning rounded shadow" name="login" value="Add">Add</button>
-                    </div>
+                </form>
+                <div class="mb-5">
+                {% if white_list_ips %}
+
+                {% for ip in white_list_ips %}
+
+                    <p> {{ip.ipaddr}} 
+                    <a href="/{{ ip.id }}/WhiteListRemove"> <b>  Remove  </b> </a> </p>
+                {% endfor %}
+
+                {% endif %}
+            </div>
                 </div>
-
-        
-            </form>
-            <div class="mb-5">
-            {% if white_list_ips %}
-
-            {% for ip in white_list_ips %}
-
-                <p> {{ip.ipaddr}} 
-                <a href="/{{ ip.id }}/WhiteListRemove"> <b>  Remove  </b> </a> </p>
-            {% endfor %}
-
-            {% endif %}
         </div>
-            </div>
-      </div>
+        </div>
     </div>
-  </div>
+
+{% else %}
+    <h1> please login </h1>
+
+{% endif %}
 
 
 {% endblock %}
