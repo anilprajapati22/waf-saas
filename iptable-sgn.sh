@@ -102,6 +102,13 @@ main(){
         echo -e "Removing  SQL prevention Rules  : $ipadd \n"
         iptables --table mangle -D INPUT -p tcp  --dport 80 -m string --string $ipadd --algo bm -j DROP
 
+    elif [[ 12 == $choice ]]
+    then 
+        echo -e "Adding DDos Prevention Rule  : \n"
+        iptables -A FORWARD -p tcp --dport 80 -m limit --limit 1/s -j ACCEPT
+        iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+        iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+        iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
 
     fi    
 }

@@ -17,6 +17,9 @@ def index(request):
     context={}
     return render(request, 'index.html', context)    
 
+def Ddos_prevention():
+    pass
+
 def register(request):
 	if request.method == "POST":
 		form = UserRegistrationForm(request.POST)
