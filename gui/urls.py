@@ -9,7 +9,7 @@ urlpatterns = [
     path('<str:black_list_ip>/BlackListRemove', views.BlackListRemove, name='BlackListRemove'), 
     path('<str:white_list_ip>/WhiteListRemove', views.WhiteListRemove, name='WhiteListRemove'), 
     path('<str:sql_filter_rule>/SQLFilterRemove', views.SQLFilterRemove, name='SQLFilterRemove'), 
-    path("register", views.register, name="register"),
+    path("regi", views.register, name="register"),
 
     path('', views.setWAF, name='setWAF'),   
 
