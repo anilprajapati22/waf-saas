@@ -107,7 +107,7 @@ main(){
         echo -e "Adding DDos Prevention Rule  : \n"
         iptables --table mangle -A PREROUTING -p tcp --dport 80 -m limit --limit 1/s -j ACCEPT
         iptables --table mangle -A PREROUTING -p tcp --dport 80 --syn -m limit --limit 1/s -j ACCEPT
-        iptables --table mangle -A PREROUTING -p tcp --dport 80--tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+        iptables --table mangle -A PREROUTING -p tcp --dport 80 --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
         iptables --table mangle -A PREROUTING -p icmp --dport 80 --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
 
     fi    
