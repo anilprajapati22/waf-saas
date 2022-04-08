@@ -3,7 +3,6 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import subprocess
 
-from sqlalchemy import false, true
 from .models import iptableRules,SQlFileterRules
 from .forms import UserRegistrationForm
 from django.contrib.auth import login
