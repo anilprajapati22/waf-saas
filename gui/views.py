@@ -18,6 +18,7 @@ def index(request):
     return render(request, 'index.html', context)    
 
 def Ddos_prevention():
+    p = subprocess.Popen(["bash","iptable-sgn.sh","12"])    
     pass
 
 def register(request):

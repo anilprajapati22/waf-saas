@@ -20,3 +20,14 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+DATABASES = {'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Dbname',
+            'USER': 'Dbuser',
+            'PASSWORD': 'Dbpasswd',
+            'HOST': 'Dburl',
+            'PORT': '3306',
+           }
+        }
+    
