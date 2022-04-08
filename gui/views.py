@@ -24,7 +24,6 @@ def Ddos_prevention(request):
     p = subprocess.Popen(["bash","iptable-sgn.sh","4"])        
     p = subprocess.Popen(["bash","iptable-sgn.sh","12"])    
     return redirect(setRules)
-Ddos_prevention()
 
 def register(request):
 	if request.method == "POST":
