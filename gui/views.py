@@ -2,6 +2,8 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import subprocess
+
+from sqlalchemy import false, true
 from .models import iptableRules,SQlFileterRules
 from .forms import UserRegistrationForm
 from django.contrib.auth import login
@@ -17,10 +19,12 @@ def index(request):
     context={}
     return render(request, 'index.html', context)    
 
-def Ddos_prevention():
+def Ddos_prevention(request):
+    request.session['is_ddos_run'] = False   
+    print("\n\n\n ddos prevention workd ")
     p = subprocess.Popen(["bash","iptable-sgn.sh","4"])        
     p = subprocess.Popen(["bash","iptable-sgn.sh","12"])    
-
+    return redirect(setRules)
 Ddos_prevention()
 
 def register(request):
@@ -39,6 +43,8 @@ def register(request):
 def setRules(request):
     if request.method == "GET":
         #request.session['msg']=""
+        if request.session.get("is_ddos_run",True):
+            Ddos_prevention(request)
         black_list_ips = iptableRules.objects.filter(rule="Black")
         print(black_list_ips)
         white_list_ips = iptableRules.objects.filter(rule="White")
